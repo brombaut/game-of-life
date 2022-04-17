@@ -21,10 +21,16 @@ export class Cell {
   isNeighbour(c: Cell): boolean {
     const xDistance = Math.abs(c.x - this.x);
     const yDistance = Math.abs(c.y - this.y);
-    return xDistance <= 1 || yDistance <= 1;
+    return xDistance <= 1 && yDistance <= 1;
   }
 
-  liveNeighbours(otherLiveCells: Cell[]): Cell[] {
+  isSameCell(c: Cell) {
+    return this.x === c.x && this.y === c.y;
+  }
+
+  liveNeighbours(liveCells: Cell[]): Cell[] {
+    // liveCells may contain this cell, so make sure it is removed;
+    const otherLiveCells = liveCells.filter((c: Cell) => !this.isSameCell(c));
     return otherLiveCells.filter((c: Cell) => this.isNeighbour(c));
   }
 }
@@ -32,11 +38,15 @@ export class Cell {
 export class Grid {
   liveCells: Cell[] = [];
 
+  constructor(liveCells: Cell[]) {
+    this.liveCells = liveCells;
+  }
+
   nextGeneration() {
     const previousGeneration = [...this.liveCells];
     const continueLivingCells: Cell[] = this.getLiveCellsWithTwoOrThreeLiveNeighbours(previousGeneration);
     const newLivingCells: Cell[] = this.getDeadCellsWithThreeLiveNeighbours(previousGeneration);
-
+    this.liveCells = [...continueLivingCells, ...newLivingCells];
   }
 
   getLiveCellsWithTwoOrThreeLiveNeighbours(liveCells: Cell[]): Cell[] {
@@ -44,7 +54,7 @@ export class Grid {
   }
 
   getDeadCellsWithThreeLiveNeighbours(liveCells: Cell[]): Cell[] {
-
+    return [];
   }
 
 
