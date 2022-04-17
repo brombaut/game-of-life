@@ -36,26 +36,63 @@ export class Cell {
 }
 
 export class Grid {
-  liveCells: Cell[] = [];
+  liveCells: Cell[];
+  generation: number;
 
   constructor(liveCells: Cell[]) {
     this.liveCells = liveCells;
+    this.generation = 0;
   }
 
   nextGeneration() {
-    const previousGeneration = [...this.liveCells];
-    const continueLivingCells: Cell[] = this.getLiveCellsWithTwoOrThreeLiveNeighbours(previousGeneration);
-    const newLivingCells: Cell[] = this.getDeadCellsWithThreeLiveNeighbours(previousGeneration);
+    const continueLivingCells: Cell[] = this.getLiveCellsWithTwoOrThreeLiveNeighbours();
+    const newLivingCells: Cell[] = this.getDeadCellsWithThreeLiveNeighbours();
     this.liveCells = [...continueLivingCells, ...newLivingCells];
+    this.generation++;
   }
 
-  getLiveCellsWithTwoOrThreeLiveNeighbours(liveCells: Cell[]): Cell[] {
-    return [];
+  getLiveCellsWithTwoOrThreeLiveNeighbours(): Cell[] {
+    const result: Cell[] = [];
+    this.liveCells.forEach((c: Cell) => {
+      const liveNeighbours = c.liveNeighbours(this.liveCells);
+      if (liveNeighbours.length === 2 || liveNeighbours.length === 3) {
+        result.push(c);
+      }
+    });
+    return result;
   }
 
-  getDeadCellsWithThreeLiveNeighbours(liveCells: Cell[]): Cell[] {
-    return [];
+  getDeadCellsWithThreeLiveNeighbours(): Cell[] {
+    const result: Cell[] = [];
+    this.liveCells.forEach((c: Cell) => {
+      const adjDeacCells = this.getAdjacentDeadCells(c);
+      adjDeacCells.forEach((c: Cell) => {
+        const liveNeighbours = c.liveNeighbours(this.liveCells);
+        const cellIsNotInResult = result.findIndex((rc: Cell) => rc.isSameCell(c)) === -1;
+        if (liveNeighbours.length === 3 && cellIsNotInResult) {
+          result.push(c);
+        }
+      });
+    });
+    return result;
   }
 
+  private getAdjacentDeadCells(c: Cell): Cell[] {
+    const result: Cell[] = [];
+    const ranges = [-1, 0, 1];
+    
+    ranges.forEach((i: number) => {
+      ranges.forEach((j: number) => {
+        if (i === 0 && j === 0) return;  // Don't check against yourself
+        const cellToCheck: Cell = new Cell(c.x + i, c.y + j);
+        const isDeadCell = this.liveCells.findIndex((c: Cell) => c.isSameCell(cellToCheck)) === -1;
+        const cellIsNotInResult = result.findIndex((c: Cell) => c.isSameCell(cellToCheck)) === -1;
+        if (isDeadCell && cellIsNotInResult) {
+          result.push(cellToCheck);
+        }
+      });
+    });
+    return result;
+  }
 
 }
