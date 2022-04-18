@@ -95,16 +95,157 @@ describe("Grid class", () => {
       expect(result).toEqual(expect.arrayContaining(expected));
     });
   });
-  // describe("still lifes don't change", () => {
-  //   it("doesn't change squares", () => {
-  //     const square = [
-  //       new Cell(0, 0),
-  //       new Cell(0, 1),
-  //       new Cell(1, 0),
-  //       new Cell(1, 1),
-  //     ];
-  //     const g = new Grid(square);
 
-  //   });
-  // });
+
+  describe("correctly generates new generations", () => {
+    describe("still lifes", () => {
+      it("doesn't change squares", () => {
+        const square = [
+          new Cell(0, 0),
+          new Cell(0, 1),
+          new Cell(1, 0),
+          new Cell(1, 1),
+        ];
+        const g = new Grid(square);
+        g.nextGeneration();
+        const result = g.liveCells;
+        expect(result.length).toEqual(square.length);
+        expect(result).toEqual(expect.arrayContaining(square));
+      });
+
+      it("doesn't change bee-hive", () => {
+        const beeHive = [
+          new Cell(2, 3),
+          new Cell(3, 3),
+          new Cell(4, 2),
+          new Cell(3, 1),
+          new Cell(2, 1),
+          new Cell(1, 2),
+        ];
+  
+        const g = new Grid(beeHive);
+        g.nextGeneration();
+        const result = g.liveCells;
+        expect(result.length).toEqual(beeHive.length);
+        expect(result).toEqual(expect.arrayContaining(beeHive));
+      });
+    });
+
+    describe("oscilators", () => {
+      // https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life#Examples_of_patterns
+      it("oscilates a blinker", () => {
+        const blinkerG1 = [
+          new Cell(0, -1),
+          new Cell(0, 0),
+          new Cell(0, 1),
+        ];
+
+        const blinkerG2 = [
+          new Cell(-1, 0),
+          new Cell(0, 0),
+          new Cell(1, 0),
+        ];
+
+        let result: Cell[];
+        const g = new Grid(blinkerG1);
+        g.nextGeneration();
+        result = g.liveCells;
+        expect(result.length).toEqual(blinkerG2.length);
+        expect(result).toEqual(expect.arrayContaining(blinkerG2));
+
+        g.nextGeneration();
+        result = g.liveCells;
+        expect(result.length).toEqual(blinkerG1.length);
+        expect(result).toEqual(expect.arrayContaining(blinkerG1));
+
+      });
+
+      it("oscilates a toad", () => {
+        const toadG1 = [
+          new Cell(2, 3),
+          new Cell(3, 3),
+          new Cell(4, 3),
+          new Cell(1, 2),
+          new Cell(2, 2),
+          new Cell(3, 2),
+        ];
+
+        const toadG2 = [
+          new Cell(3, 4),
+          new Cell(4, 3),
+          new Cell(4, 2),
+          new Cell(2, 1),
+          new Cell(1, 2),
+          new Cell(1, 3),
+        ];
+        
+        let result: Cell[];
+        const g = new Grid(toadG1);
+        g.nextGeneration();
+        result = g.liveCells;
+        expect(result.length).toEqual(toadG2.length);
+        expect(result).toEqual(expect.arrayContaining(toadG2));
+
+        g.nextGeneration();
+        result = g.liveCells;
+        expect(result.length).toEqual(toadG1.length);
+        expect(result).toEqual(expect.arrayContaining(toadG1));
+      });
+    });
+
+    describe("spaceships", () => {
+        it("glides a glider", () => {
+          const gliderG1 = [
+            new Cell(0, 0),
+            new Cell(1, -1),
+            new Cell(1, -2),
+            new Cell(0, -2),
+            new Cell(-1, -2),
+          ];
+
+          const gliderG2 = [
+            new Cell(-1, -1),
+            new Cell(1, -1),
+            new Cell(1, -2),
+            new Cell(0, -2),
+            new Cell(0, -3),
+          ];
+
+          const gliderG3 = [
+            new Cell(-1, -2),
+            new Cell(1, -1),
+            new Cell(1, -2),
+            new Cell(1, -3),
+            new Cell(0, -3),
+          ];
+
+          const gliderG4 = [
+            new Cell(0, -1),
+            new Cell(2, -2),
+            new Cell(1, -2),
+            new Cell(1, -3),
+            new Cell(0, -3),
+          ];
+
+          let result: Cell[];
+          const g = new Grid(gliderG1);
+          g.nextGeneration();
+          result = g.liveCells;
+          expect(result.length).toEqual(gliderG2.length);
+          expect(result).toEqual(expect.arrayContaining(gliderG2));
+
+          g.nextGeneration();
+          result = g.liveCells;
+          expect(result.length).toEqual(gliderG3.length);
+          expect(result).toEqual(expect.arrayContaining(gliderG3));
+
+          g.nextGeneration();
+          result = g.liveCells;
+          expect(result.length).toEqual(gliderG4.length);
+          expect(result).toEqual(expect.arrayContaining(gliderG4));
+
+        });
+    });
+
+  });
 });
