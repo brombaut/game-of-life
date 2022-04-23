@@ -1,4 +1,4 @@
-import { Cell } from "@/types";
+import { Cell } from "@/types/types";
 
 describe("Cell class", () => {
   it("distinguishes between neighbours and non-neighbours", () => {

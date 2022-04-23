@@ -1,21 +1,27 @@
 <template>
+  <GameHeader />
   <GameGrid />
+  <GameFooter />
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue';
 import GameGrid from './components/GameGrid.vue';
+import GameHeader from './components/GameHeader.vue';
+import GameFooter from './components/GameFooter.vue';
+
 
 export default defineComponent({
   name: 'App',
   components: {
     GameGrid,
+    GameHeader,
+    GameFooter
   },
 });
 </script>
 
 <style lang="scss">
-
 * {
   box-sizing: border-box;
 }

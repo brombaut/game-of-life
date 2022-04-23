@@ -44,6 +44,11 @@ export class Grid {
     this.generation = 0;
   }
 
+  cellIsLive(c: Cell): boolean {
+    // TODO: Test this function
+    return this.liveCells.some((lc: Cell) => c.isSameCell(lc));
+  }
+
   nextGeneration() {
     const continueLivingCells: Cell[] = this.getLiveCellsWithTwoOrThreeLiveNeighbours();
     const newLivingCells: Cell[] = this.getDeadCellsWithThreeLiveNeighbours();

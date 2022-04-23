@@ -1,4 +1,4 @@
-import { Grid, Cell } from "@/types";
+import { Grid, Cell } from "@/types/types";
 
 describe("Grid class", () => {
   describe("correctly keeps live cells with 2 or 3 neighbours living", () => {
