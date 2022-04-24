@@ -1,10 +1,14 @@
 <template>
-  <div class="cell" :class="{ live: isLive }">
+  <div
+    class="cell"
+    :class="{ live: isLive }"
+    @click="handleCellClick">
     <!-- {{i}}<br>{{j}} -->
   </div>
 </template>
 
 <script lang="ts">
+import { Cell } from "@/types/types";
 import { defineComponent } from 'vue';
 
 export default defineComponent({
@@ -22,6 +26,11 @@ export default defineComponent({
       type: Boolean,
       required: true,
     }
+  },
+  methods: {
+    handleCellClick() {
+      this.$emit("toggleCell", new Cell(this.i, this.j));
+    },
   },
 });
 </script>

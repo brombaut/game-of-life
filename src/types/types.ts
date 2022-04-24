@@ -66,10 +66,28 @@ export class Grid {
   }
 
   reset() {
+    // TODO: Test this function
     if (this.previousGenerations.length === 0)  return;
     this.liveCells = this.previousGenerations[0];
-    this.previousGenerations = [];
+    this.resetGenerationHistory();
+  }
+
+  resetGenerationHistory() {
+    // TODO: Test this function
     this.generation = 0;
+    this.previousGenerations = [];
+  }
+
+  removeLiveCell(cToRemove: Cell) {
+    // TODO: Test this function
+    this.liveCells = this.liveCells.filter((c: Cell) => !c.isSameCell(cToRemove));
+  }
+
+  addLiveCell(cToAdd: Cell) {
+    // TODO: Test this function
+    if (!this.liveCells.find((c: Cell) => c.isSameCell(cToAdd))) {
+      this.liveCells.push(cToAdd);
+    }
   }
 
   getLiveCellsWithTwoOrThreeLiveNeighbours(): Cell[] {

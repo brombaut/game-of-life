@@ -1,6 +1,8 @@
 <template>
   <GameHeader />
-  <GameGrid :mGameGrid="mGameGrid"/>
+  <GameGrid
+    :mGameGrid="mGameGrid"
+    @toggleCell="manuallyToggleCell"/>
   <GameFooter
     :playing="playing"
     :generation="mGameGrid.generation"
@@ -15,7 +17,7 @@ import { defineComponent } from 'vue';
 import GameGrid from './components/GameGrid.vue';
 import GameHeader from './components/GameHeader.vue';
 import GameFooter from './components/GameFooter.vue';
-import { Grid } from "./types/types";
+import { Cell, Grid } from "./types/types";
 import * as defaultGrids from "@/types/DefaultGrids";
 
 
@@ -56,6 +58,14 @@ export default defineComponent({
     },
     reset() {
       this.mGameGrid.reset();
+    },
+    manuallyToggleCell(c: Cell) {
+      this.mGameGrid.resetGenerationHistory();
+      if (this.mGameGrid.cellIsLive(c)) {
+        this.mGameGrid.removeLiveCell(c);
+      } else {
+        this.mGameGrid.addLiveCell(c);
+      }
     }
   },
 });

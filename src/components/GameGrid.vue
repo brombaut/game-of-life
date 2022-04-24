@@ -9,7 +9,8 @@
         :key="`cell-${i}-${j}`"
         :i="i - Math.floor(numberOfCellRows / 2)"
         :j="j - Math.floor(numberOfCellCols / 2)"
-        :isLive="cellIsLive(i - Math.floor(numberOfCellRows / 2), j - Math.floor(numberOfCellCols / 2))"/>
+        :isLive="cellIsLive(i - Math.floor(numberOfCellRows / 2), j - Math.floor(numberOfCellCols / 2))"
+        @toggleCell="(c) => $emit('toggleCell', c)"/>
     </div>
   </div>
 </template>
