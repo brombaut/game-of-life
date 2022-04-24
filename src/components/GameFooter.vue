@@ -28,7 +28,14 @@
         </h1>
       </div>
       <div class="control-group">
-        <div class="control">Speed</div>
+        <input
+          type="range"
+          :min="minSliderSpeed"
+          :max="maxSliderSpeed"
+          value="500"
+          class="slider"
+          @input="(e) => handleSliderChange(e.target.value)"
+          id="speed-slider">
       </div>
       <div class="control-group">
         <h1>
@@ -58,6 +65,18 @@ export default defineComponent({
     generation: {
       type: Number,
       required: true,
+    },
+  },
+  data() {
+    return {
+      maxSliderSpeed: 1000,
+      minSliderSpeed: 10,
+    };
+  },
+  methods: {
+    handleSliderChange(rawVal: number) {
+      const valueToEmit = this.maxSliderSpeed - rawVal + this.minSliderSpeed;
+      this.$emit('speedChanged', valueToEmit)
     },
   },
 });
@@ -95,6 +114,10 @@ export default defineComponent({
       .control-button {
         padding: 0 8px;
         text-align: center;
+      }
+
+      .slider {
+        accent-color: $primary;
       }
     }
   }

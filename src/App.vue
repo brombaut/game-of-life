@@ -9,7 +9,8 @@
     @nextGenerationClicked="setNextGeneration"
     @previousGenerationClicked="setPreviousGeneration"
     @playOrPauseButtonClicked="togglePlaying"
-    @reset="reset" />
+    @reset="reset"
+    @speedChanged="updateMsBetweenGenerations"/>
 </template>
 
 <script lang="ts">
@@ -65,6 +66,14 @@ export default defineComponent({
         this.mGameGrid.removeLiveCell(c);
       } else {
         this.mGameGrid.addLiveCell(c);
+      }
+    },
+    updateMsBetweenGenerations(newVal: number) {
+      this.msBetweenGenerations = newVal;
+      if (this.playing) {
+        // If we are already playing, speed up the current interval
+        clearInterval(this.nextGenerationInterval);
+        this.nextGenerationInterval = setInterval(this.setNextGeneration, this.msBetweenGenerations);
       }
     }
   },
