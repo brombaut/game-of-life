@@ -65,6 +65,13 @@ export class Grid {
     this.generation--;
   }
 
+  reset() {
+    if (this.previousGenerations.length === 0)  return;
+    this.liveCells = this.previousGenerations[0];
+    this.previousGenerations = [];
+    this.generation = 0;
+  }
+
   getLiveCellsWithTwoOrThreeLiveNeighbours(): Cell[] {
     const result: Cell[] = [];
     this.liveCells.forEach((c: Cell) => {

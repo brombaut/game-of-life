@@ -7,6 +7,7 @@ import {
   faChevronRight,
   faPlay,
   faPause,
+  faUndo,
 } from "@fortawesome/free-solid-svg-icons";
 import App from './App.vue'
 
@@ -15,6 +16,7 @@ library.add(faChevronRight);
 library.add(faCaretDown);
 library.add(faPlay);
 library.add(faPause);
+library.add(faUndo);
 
 // Vue.component("font-awesome-icon", FontAwesomeIcon);
 

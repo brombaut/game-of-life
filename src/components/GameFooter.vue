@@ -27,9 +27,17 @@
             @click="$emit('nextGenerationClicked')"/>
         </h1>
       </div>
-      <!-- <div class="control-group">
+      <div class="control-group">
         <div class="control">Speed</div>
-      </div> -->
+      </div>
+      <div class="control-group">
+        <h1>
+          <font-awesome-icon
+            class="control control-button"
+            :icon="['fas', 'undo']"
+            @click="$emit('reset')"/>
+        </h1>
+      </div>
       <div class="control-group">
         <h1><div class="control">Generation: {{ generation }}</div></h1>
       </div>

@@ -6,7 +6,8 @@
     :generation="mGameGrid.generation"
     @nextGenerationClicked="setNextGeneration"
     @previousGenerationClicked="setPreviousGeneration"
-    @playOrPauseButtonClicked="togglePlaying" />
+    @playOrPauseButtonClicked="togglePlaying"
+    @reset="reset" />
 </template>
 
 <script lang="ts">
@@ -53,6 +54,9 @@ export default defineComponent({
     setPreviousGeneration() {
       this.mGameGrid.previousGeneration();
     },
+    reset() {
+      this.mGameGrid.reset();
+    }
   },
 });
 </script>
