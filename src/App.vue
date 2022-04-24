@@ -1,7 +1,12 @@
 <template>
   <GameHeader />
-  <GameGrid />
-  <GameFooter />
+  <GameGrid :mGameGrid="mGameGrid"/>
+  <GameFooter
+    :playing="playing"
+    :generation="mGameGrid.generation"
+    @nextGenerationClicked="setNextGeneration"
+    @previousGenerationClicked="setPreviousGeneration"
+    @playOrPauseButtonClicked="togglePlaying" />
 </template>
 
 <script lang="ts">
@@ -9,6 +14,8 @@ import { defineComponent } from 'vue';
 import GameGrid from './components/GameGrid.vue';
 import GameHeader from './components/GameHeader.vue';
 import GameFooter from './components/GameFooter.vue';
+import { Grid } from "./types/types";
+import * as defaultGrids from "@/types/DefaultGrids";
 
 
 export default defineComponent({
@@ -17,6 +24,35 @@ export default defineComponent({
     GameGrid,
     GameHeader,
     GameFooter
+  },
+  data() {
+    const mGameGrid: Grid = new defaultGrids.Glider();
+    return {
+      playing: false,
+      msBetweenGenerations: 100,
+      mGameGrid,
+      nextGenerationInterval: 0,
+    };
+  },
+  watch: {
+    playing(isPlaying) {
+      if (isPlaying) {
+        this.nextGenerationInterval = setInterval(this.setNextGeneration, this.msBetweenGenerations);
+      } else {
+        clearInterval(this.nextGenerationInterval);
+      }
+    },
+  },
+  methods: {
+    togglePlaying() {
+      this.playing = !this.playing;
+    },
+    setNextGeneration() {
+      this.mGameGrid.nextGeneration();
+    },
+    setPreviousGeneration() {
+      this.mGameGrid.previousGeneration();
+    },
   },
 });
 </script>

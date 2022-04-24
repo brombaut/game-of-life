@@ -15,10 +15,9 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { defineComponent, PropType } from 'vue';
 import GridCell from "./GridCell.vue";
-import { Grid, Cell } from "@/types/types";
-import * as defaultGrids from "@/types/DefaultGrids";
+import { Cell, Grid } from "@/types/types";
 
 
 export default defineComponent({
@@ -26,13 +25,17 @@ export default defineComponent({
   components: {
     GridCell,
   },
+  props: {
+    mGameGrid: {
+      type: Object as PropType<Grid>,
+      required: true,
+    },
+  },
   data() {
-    const mGrid: Grid = new defaultGrids.Glider();
     return {
       approximateCellSize: 20,
       gameGridHeight: null,
       gameGridWidth: null,
-      mGrid,
     };
   },
   computed: {
@@ -55,7 +58,7 @@ export default defineComponent({
     },
     cellIsLive(i: number, j: number) {
       const cToCheck: Cell = new Cell(i, j);
-      return this.mGrid.cellIsLive(cToCheck);
+      return this.mGameGrid.cellIsLive(cToCheck);
     },
   },
   mounted(): void {

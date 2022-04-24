@@ -38,10 +38,12 @@ export class Cell {
 export class Grid {
   liveCells: Cell[];
   generation: number;
+  previousGenerations: Cell[][];
 
   constructor(liveCells: Cell[]) {
     this.liveCells = liveCells;
     this.generation = 0;
+    this.previousGenerations = [];
   }
 
   cellIsLive(c: Cell): boolean {
@@ -50,10 +52,17 @@ export class Grid {
   }
 
   nextGeneration() {
+    this.previousGenerations.push([...this.liveCells]);
     const continueLivingCells: Cell[] = this.getLiveCellsWithTwoOrThreeLiveNeighbours();
     const newLivingCells: Cell[] = this.getDeadCellsWithThreeLiveNeighbours();
     this.liveCells = [...continueLivingCells, ...newLivingCells];
     this.generation++;
+  }
+
+  previousGeneration() {
+    if (this.previousGenerations.length === 0)  return;
+    this.liveCells = this.previousGenerations.pop() as Cell[];
+    this.generation--;
   }
 
   getLiveCellsWithTwoOrThreeLiveNeighbours(): Cell[] {
