@@ -1,4 +1,4 @@
-# game-of-life
+# Conway's Game of Life
 
 - [x] Zoom in and out on grid
 - [x] Rules dropdown
