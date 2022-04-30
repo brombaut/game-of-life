@@ -1,16 +1,19 @@
 <template>
   <header id="game-header">
-    <h1>Conway's Game of Life</h1>
-    <h1>Rules</h1>
+    <h1 class="title">Conway's Game of Life</h1>
+    <RulesPane />
   </header>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue';
+import RulesPane from "@/components/RulesPane.vue"
 
 export default defineComponent({
   name: "GameHeader",
-
+  components: {
+    RulesPane,
+  },
 });
 </script>
 
@@ -23,12 +26,11 @@ export default defineComponent({
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  padding: 0 16px;
+  // padding: 0 16px;
 
-  h1 {
-    padding: 8px;
+  .title {
+    padding: 8px 12px;
     color: $primary;
-
   }
 }
 
