@@ -1,6 +1,6 @@
 const { defineConfig } = require('@vue/cli-service')
 module.exports = defineConfig({
-  publicPath: '/conways-game-of-life/',
+  publicPath: '/game-of-life/',
   transpileDependencies: true,
   css: {
     loaderOptions: {
