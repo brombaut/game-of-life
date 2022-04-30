@@ -8,7 +8,9 @@ import {
   faPlay,
   faPause,
   faUndo,
-  faTrash
+  faTrash,
+  faMagnifyingGlassPlus,
+  faMagnifyingGlassMinus,
 } from "@fortawesome/free-solid-svg-icons";
 import App from './App.vue'
 
@@ -19,6 +21,8 @@ library.add(faPlay);
 library.add(faPause);
 library.add(faUndo);
 library.add(faTrash);
+library.add(faMagnifyingGlassPlus);
+library.add(faMagnifyingGlassMinus);
 
 // Vue.component("font-awesome-icon", FontAwesomeIcon);
 

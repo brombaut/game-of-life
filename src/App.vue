@@ -2,6 +2,7 @@
   <GameHeader />
   <GameGrid
     :mGameGrid="mGameGrid"
+    :approximateCellSize="approximateCellSize"
     @toggleCell="manuallyToggleCell"/>
   <GameFooter
     :playing="playing"
@@ -11,6 +12,8 @@
     @playOrPauseButtonClicked="togglePlaying"
     @reset="reset"
     @clear="clear"
+    @zoomIn="zoomIn"
+    @zoomOut="zoomOut"
     @speedChanged="updateMsBetweenGenerations"/>
 </template>
 
@@ -32,11 +35,16 @@ export default defineComponent({
   },
   data() {
     const mGameGrid: Grid = new defaultGrids.Glider();
+    const approximateCellSizeOptions: number[] = [
+      4, 6, 10, 20, 30, 50, 75
+    ];
     return {
       playing: false,
       msBetweenGenerations: 100,
       mGameGrid,
       nextGenerationInterval: 0,
+      approximateCellSizeIndex: 4,
+      approximateCellSizeOptions,
     };
   },
   watch: {
@@ -46,6 +54,11 @@ export default defineComponent({
       } else {
         clearInterval(this.nextGenerationInterval);
       }
+    },
+  },
+  computed: {
+    approximateCellSize(): number {
+      return this.approximateCellSizeOptions[this.approximateCellSizeIndex];
     },
   },
   methods: {
@@ -63,6 +76,12 @@ export default defineComponent({
     },
     clear() {
       this.mGameGrid = new Grid([]);
+    },
+    zoomIn() {
+      this.approximateCellSizeIndex = Math.min(this.approximateCellSizeIndex + 1, this.approximateCellSizeOptions.length - 1);
+    },
+    zoomOut() {
+      this.approximateCellSizeIndex = Math.max(this.approximateCellSizeIndex - 1, 0);
     },
     manuallyToggleCell(c: Cell) {
       this.mGameGrid.resetGenerationHistory();

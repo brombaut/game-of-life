@@ -31,10 +31,13 @@ export default defineComponent({
       type: Object as PropType<Grid>,
       required: true,
     },
+    approximateCellSize: {
+      type: Number,
+      required: true,
+    },
   },
   data() {
     return {
-      approximateCellSize: 20,
       gameGridHeight: null,
       gameGridWidth: null,
     };

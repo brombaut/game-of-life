@@ -7,4 +7,5 @@
 - [] Click, hold, and drag to toggle cells
 - [] Add dropdown (or drop up) to select default grids
 - [x] Add reset button
-- [] Add clear button
+- [x] Add clear button
+- [ ] Fix slider speed issues (not running on slide, timing seems off)
