@@ -44,6 +44,12 @@
             :icon="['fas', 'undo']"
             @click="$emit('reset')"/>
         </h1>
+        <h1>
+          <font-awesome-icon
+            class="control control-button"
+            :icon="['fas', 'trash']"
+            @click="$emit('clear')"/>
+        </h1>
       </div>
       <div class="control-group">
         <h1><div class="control">Generation: {{ generation }}</div></h1>

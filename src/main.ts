@@ -8,6 +8,7 @@ import {
   faPlay,
   faPause,
   faUndo,
+  faTrash
 } from "@fortawesome/free-solid-svg-icons";
 import App from './App.vue'
 
@@ -17,6 +18,7 @@ library.add(faCaretDown);
 library.add(faPlay);
 library.add(faPause);
 library.add(faUndo);
+library.add(faTrash);
 
 // Vue.component("font-awesome-icon", FontAwesomeIcon);
 

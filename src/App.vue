@@ -10,6 +10,7 @@
     @previousGenerationClicked="setPreviousGeneration"
     @playOrPauseButtonClicked="togglePlaying"
     @reset="reset"
+    @clear="clear"
     @speedChanged="updateMsBetweenGenerations"/>
 </template>
 
@@ -59,6 +60,9 @@ export default defineComponent({
     },
     reset() {
       this.mGameGrid.reset();
+    },
+    clear() {
+      this.mGameGrid = new Grid([]);
     },
     manuallyToggleCell(c: Cell) {
       this.mGameGrid.resetGenerationHistory();
