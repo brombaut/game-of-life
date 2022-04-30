@@ -10,3 +10,5 @@
 - [x] Add clear button
 - [ ] Fix slider speed issues (not running on slide, timing seems off)
 - [ ] Deploy
+- [ ] Write a good readme
+- [ ] Add to benrombaut.ca
