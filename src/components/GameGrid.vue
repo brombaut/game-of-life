@@ -1,5 +1,8 @@
 <template>
-  <div id="game-grid">
+  <div
+    id="game-grid"
+    @mousedown="setMouseIsDragging(true)"
+    @mouseup="setMouseIsDragging(false)" >
     <div
       v-for="i in numberOfCellRows"
       :key="`row-${i}`"
@@ -10,6 +13,7 @@
         :i="i - Math.floor(numberOfCellRows / 2)"
         :j="j - Math.floor(numberOfCellCols / 2)"
         :isLive="cellIsLive(i - Math.floor(numberOfCellRows / 2), j - Math.floor(numberOfCellCols / 2))"
+        :mouseIsDragging="mouseIsDragging"
         @toggleCell="(c) => $emit('toggleCell', c)"/>
     </div>
   </div>
@@ -40,6 +44,7 @@ export default defineComponent({
     return {
       gameGridHeight: null,
       gameGridWidth: null,
+      mouseIsDragging: false,
     };
   },
   computed: {
@@ -63,6 +68,9 @@ export default defineComponent({
     cellIsLive(i: number, j: number) {
       const cToCheck: Cell = new Cell(i, j);
       return this.mGameGrid.cellIsLive(cToCheck);
+    },
+    setMouseIsDragging(val: boolean) {
+      this.mouseIsDragging = val;
     },
   },
   mounted(): void {

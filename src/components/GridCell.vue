@@ -2,7 +2,8 @@
   <div
     class="cell"
     :class="{ live: isLive }"
-    @click="handleCellClick">
+    @mousedown="handleCellClick"
+    @mouseenter="handleMouseEnter">
     <!-- {{i}}<br>{{j}} -->
   </div>
 </template>
@@ -25,11 +26,20 @@ export default defineComponent({
     isLive: {
       type: Boolean,
       required: true,
-    }
+    },
+    mouseIsDragging: {
+      type: Boolean,
+      required: true,
+    },
   },
   methods: {
     handleCellClick() {
       this.$emit("toggleCell", new Cell(this.i, this.j));
+    },
+    handleMouseEnter() {
+      if (this.mouseIsDragging) {
+        this.handleCellClick();
+      }
     },
   },
 });
