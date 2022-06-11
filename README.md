@@ -1,5 +1,5 @@
 # 🚧WIP🚧 - Conway's Game of Life
-
+Live site available at [https://brombaut.github.io/game-of-life/](https://brombaut.github.io/game-of-life/)
 ## TODOs
 - [ ] Mobile styles
 - [ ] Add dropdown (or drop up) to select default grids
