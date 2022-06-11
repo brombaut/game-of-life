@@ -95,8 +95,8 @@ export default defineComponent({
   },
   methods: {
     handleSliderChange(rawVal: number) {
-      const valueToEmit = this.maxSliderSpeed - rawVal + this.minSliderSpeed;
-      this.$emit('speedChanged', valueToEmit)
+      const valToSend = this.maxSliderSpeed - rawVal + this.minSliderSpeed;
+      this.$emit('speedChanged', valToSend)
     },
   },
 });
@@ -121,6 +121,12 @@ export default defineComponent({
       flex-direction: row;
       justify-content: center;
       margin: 0 8px;
+
+      .header-text {
+        color: $primary;
+        display: flex;
+        align-items: center;
+      }
 
       .control {
         color: $primary;
